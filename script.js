@@ -1,28 +1,53 @@
-// Simulate the correct credentials (for demo purposes)
-const correctEmail = "user@example.com";
-const correctPassword = "password123";
+// Correct credentials
+const correctEmail = "yeatty";
+const correctPassword = "yeatty2510";
 
+// Show login page initially
+function showLoginPage() {
+  document.getElementById("loginPage").style.display = "block";
+  document.getElementById("infoPage").style.display = "none";
+}
+
+// Show info page
+function showInfoPage() {
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("infoPage").style.display = "block";
+}
+
+// Handle login form submission
 document.getElementById("loginForm").onsubmit = function(event) {
-  event.preventDefault(); // Prevent the form from submitting
+  event.preventDefault(); // Prevent form from submitting
 
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  // Check if the credentials match
-  if (email !== correctEmail || password !== correctPassword) {
-    // Show the error message if credentials are incorrect
-    document.getElementById("errorMessage").style.display = "block";
-  } else {
-    // Store user data (email, timestamp, and IP address simulation) in localStorage
+  // Validate email and password
+  if (email === correctEmail && password === correctPassword) {
+    // Store user data in sessionStorage
     const userData = {
       email: email,
       timestamp: new Date().toLocaleString(),
       ip: "192.168.1.1" // This is just a simulation. IP is typically obtained on the server-side.
     };
 
-    localStorage.setItem("userData", JSON.stringify(userData));
+    sessionStorage.setItem("userData", JSON.stringify(userData));
 
-    // Redirect to the display page (Page 2)
-    window.location.href = "display.html";
+    // Redirect to the info page
+    showInfoPage();
+  } else {
+    // Show error message
+    document.getElementById("errorMessage").style.display = "block";
   }
 };
+
+// Retrieve user data from sessionStorage and display it on the info page
+const userData = JSON.parse(sessionStorage.getItem("userData"));
+
+if (userData) {
+  document.getElementById("emailDisplay").textContent = userData.email;
+  document.getElementById("passwordDisplay").textContent = "********"; // Masking password
+  document.getElementById("timestampDisplay").textContent = userData.timestamp;
+  document.getElementById("ipDisplay").textContent = userData.ip;
+} else {
+  showLoginPage();
+}
