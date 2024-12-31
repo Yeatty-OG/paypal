@@ -1,4 +1,4 @@
-// Correct credentials
+// Correct credentials for simulation
 const correctEmail = "yeatty";
 const correctPassword = "yeatty2510";
 
@@ -45,7 +45,7 @@ const userData = JSON.parse(sessionStorage.getItem("userData"));
 
 if (userData) {
   document.getElementById("emailDisplay").textContent = userData.email;
-  document.getElementById("passwordDisplay").textContent = "********"; // Masking password
+  document.getElementById("passwordDisplay").textContent = "********"; // Mask password
   document.getElementById("timestampDisplay").textContent = userData.timestamp;
   document.getElementById("ipDisplay").textContent = userData.ip;
 } else {
